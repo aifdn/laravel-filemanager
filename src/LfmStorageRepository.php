@@ -42,9 +42,9 @@ class LfmStorageRepository
 
     public function save($file)
     {
-        $nameint = strripos($this->path, "/");
+        $nameint = strripos($this->path, '/');
         $nameclean = substr($this->path, $nameint + 1);
-        $pathclean = substr_replace($this->path, "", $nameint);
+        $pathclean = substr_replace($this->path, '', $nameint);
         $this->disk->putFileAs($pathclean, $file, $nameclean, 'public');
     }
 

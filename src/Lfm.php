@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder;
 use UniSharp\LaravelFilemanager\Middlewares\MultiUser;
+use Illuminate\Support\Str;
 
 class Lfm
 {
@@ -73,7 +74,7 @@ class Lfm
     {
         $lfm_type = 'file';
 
-        $request_type = lcfirst(str_singular($this->input('type') ?: ''));
+        $request_type = lcfirst(Str::singular($this->input('type') ?: ''));
         $available_types = array_keys($this->config->get('lfm.folder_categories') ?: []);
 
         if (in_array($request_type, $available_types)) {
@@ -223,11 +224,11 @@ class Lfm
     }
 
     /**
-     * Shorter function of getting localized error message..
+     * Shorter function of getting localized error message.
+     * @param $error_type - Key of message in lang file
+     * @param  array  $variables - Variables the message needs
      *
-     * @param  mixed  $error_type  Key of message in lang file.
-     * @param  mixed  $variables   Variables the message needs.
-     * @return string
+     * @throws \Exception
      */
     public function error($error_type, $variables = [])
     {
